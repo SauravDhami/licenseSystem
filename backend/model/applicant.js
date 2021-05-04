@@ -2,9 +2,14 @@ const mongoose =  require('mongoose');
 const Schema = mongoose.Schema;
 
 const applicantSchema = mongoose.Schema({
-    name : String,
-    image : String,
-    countInStock : Number
-
+   applicantId : Number,
+   applicantName : String,
+   applicantCitizenshipNumber: String,
+   applicantAddress: String,
+   applicantDOB: Date,
+   applicantGender: String,
+   applicantPhoto: String,
+   transportationOffice: String,
+   licenseType: String
 })
-exports.applicant = mongoose.model('Applicant',applicantSchema)
+exports.Applicant = mongoose.model('Applicant', applicantSchema)
