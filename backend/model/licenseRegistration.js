@@ -9,4 +9,4 @@ const licenseRegistrationSchema = mongoose.Schema({
 
 
 })
-exports.licenseRegistration = mongoose.model('LicenseRegistration',licenseRegistrationSchema)
+exports.LicenseRegistration = mongoose.model('LicenseRegistration',licenseRegistrationSchema)

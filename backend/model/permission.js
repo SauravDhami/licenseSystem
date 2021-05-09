@@ -2,9 +2,9 @@ const mongoose =  require('mongoose');
 const Schema = mongoose.Schema;
 
 const permissionSchema = mongoose.Schema({
-    permissionId: Number,
-    permissionRoleId: Number,
+    permissionId: String,
+    permissionRoleId: String,
     permissionTitle: String
 
 })
-exports.permission = mongoose.model('Permission',permissionSchema)
+exports.Permission = mongoose.model('Permission',permissionSchema)

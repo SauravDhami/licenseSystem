@@ -3,8 +3,25 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose =  require('mongoose');
+const cors = require('cors');
 require('dotenv/config');
 const api = process.env.API_URL;
+const authJwt = require('./helpers/jwt');
+const errorHandler = require('./helpers/error-handler') ;
+
+
+app.use(cors());
+app.options('*', cors());
+
+
+//middleware
+app.use(bodyParser.json());
+app.use( authJwt());
+app.use(errorHandler);
+
+//middleware HTTP loggers details
+app.use(morgan('tiny'));
+
 
 //improting routes
 const applicantsRoutes = require('./routes/applicants');
@@ -12,9 +29,7 @@ const licenseRegistrationsRoutes = require('./routes/licenseRegistrations');
 const permissionsRoutes = require('./routes/permissions');
 const usersRoutes = require('./routes/users');
 
-//middleware
-app.use(bodyParser.json());
-app.use(morgan('tiny'));
+
 
 //routers
 app.use(`${api}/applicants`, applicantsRoutes);
