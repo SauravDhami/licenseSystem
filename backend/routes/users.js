@@ -13,7 +13,7 @@ router.get(`/`, async (req, res) =>{
 
 //?for specific user
 router.get(`/:id`, async (req, res) => {
-    const user = await User.findById(req.params.id).select('-userPassword');
+    const user = await User.findById(req.params.id).select('-userPassword') ; 
 
     if(!user) {
         res.status(500).json({message: 'The user is not found!'});

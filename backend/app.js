@@ -29,7 +29,6 @@ app.use(morgan('tiny'));
 //improting routes
 const applicantsRoutes = require('./routes/applicants');
 const licenseRegistrationsRoutes = require('./routes/licenseRegistrations');
-const permissionsRoutes = require('./routes/permissions');
 const usersRoutes = require('./routes/users');
 
 
@@ -37,7 +36,6 @@ const usersRoutes = require('./routes/users');
 //routers
 app.use(`${api}/applicants`, applicantsRoutes);
 app.use(`${api}/licenseRegistrations`, licenseRegistrationsRoutes);
-app.use(`${api}/permissions`, permissionsRoutes);
 app.use(`${api}/users`, usersRoutes);
 
 
