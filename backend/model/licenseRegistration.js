@@ -4,8 +4,10 @@ const Schema = mongoose.Schema;
 const licenseRegistrationSchema = mongoose.Schema({
     registrationId: Number,
     registrationApplicantId: Number,
-    registrationNumber: String,
-    registrationName: String
+    registrationDate: Date,
+    examinationDate: Date,
+    transportationOffice: String
+    
 
 
 })

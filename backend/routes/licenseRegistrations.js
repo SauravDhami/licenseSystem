@@ -29,8 +29,9 @@ router.post(`/`, async (req, res) =>{
         {
             registrationId: req.body.registrationId,
             registrationName: req.body.registrationName, 
-            registrationNumber: req.body.registrationNumber,
-            registrationApplicantId: req.body.registrationApplicantId
+            registrationDate: req.body.registrationDate,
+            examinationDate: req.body.examionationDate,
+            transportationOffice: req.body.transportationOffice
         });
     
     licenseRegistration = await licenseRegistration.save();
@@ -54,8 +55,9 @@ router.put(`/:id`, async (req, res)=>{
         {
             registrationId: req.body.registrationId,
             registrationName: req.body.registrationName, 
-            registrationNumber: req.body.registrationNumber,
-            registrationApplicantId: req.body.registrationApplicantId
+            registrationDate: req.body.registrationDate,
+            examinationDate: req.body.examionationDate,
+            transportationOffice: req.body.transportationOffice
         },
         {
             new: true
