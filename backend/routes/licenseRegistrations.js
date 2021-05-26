@@ -1,4 +1,6 @@
 const {LicenseRegistration} = require('../model/licenseRegistration');
+const {Applicant} = require('../model/applicant');
+const {User} = require('../model/user');
 const express = require('express');
 const router = express.Router();
 
@@ -7,13 +9,19 @@ const router = express.Router();
 //* get request response
 //?for all licenseRegistration
 router.get(`/`, async (req, res) =>{
-    const licenseRegistrationList = await LicenseRegistration.find();
+    const licenseRegistrationList = await LicenseRegistration.find()
+    .populate('userName' , 'userName')
+    .populate('applicantName' , 'applicantName')
+    .populate('transportationOffice', 'transportationOffice');
     res.send(licenseRegistrationList);
 })
 
 //?for specific licenseRegistration
 router.get(`/:id`, async (req, res) => {
-    const licenseRegistration = await LicenseRegistration.findById(req.params.id);
+    const licenseRegistration = await LicenseRegistration.findById(req.params.id)
+    .populate('userName' , 'userName')
+    .populate('applicantName' , 'applicantName')
+    .populate('transportationOffice', 'transportationOffice');
 
     if(!licenseRegistration) {
         res.status(500).json({message: 'The licenseRegistration is not found!'});
@@ -25,13 +33,19 @@ router.get(`/:id`, async (req, res) => {
 
 //* post request response
 router.post(`/`, async (req, res) =>{
+    const applicantName = (await Applicant.findById(req.body.applicantName).populate('Applicant').select('applicantName'));
+    const userName = ( await User.findById(req.body.userName).populate('User').select('userName') );
+    const transportationOffice = (await Applicant.findById(req.body.transportationOffice).populate('Applicant').select('transportationOffice') );
+    
     let licenseRegistration = new LicenseRegistration(
         {
             registrationId: req.body.registrationId,
-            registrationName: req.body.registrationName, 
+            applicantName: applicantName,
+            registrationApplicantId: req.body.registrationApplicantId,
+            userName: userName,
             registrationDate: req.body.registrationDate,
-            examinationDate: req.body.examionationDate,
-            transportationOffice: req.body.transportationOffice
+            examinationDate: req.body.examinationDate,
+            transportationOffice: transportationOffice
         });
     
     licenseRegistration = await licenseRegistration.save();
@@ -50,14 +64,20 @@ router.post(`/`, async (req, res) =>{
 
 //* update
 router.put(`/:id`, async (req, res)=>{
+    const applicantName = (await Applicant.findById(req.body.applicantName).populate('Applicant').select('applicantName') )
+    const userName = (await User.findById(req.body.userName).populate('User').select('userName') )
+    const transportationOffice = (await Applicant.findById(req.body.transportationOffice).populate('Applicant').select('transportationOffice') )
+
     const licenseRegistration = await LicenseRegistration.findByIdAndUpdate(
         req.params.id,
         {
             registrationId: req.body.registrationId,
-            registrationName: req.body.registrationName, 
+            applicantName: applicantName,
+            registrationApplicantId: req.body.registrationApplicantId,
+            userName: userName,
             registrationDate: req.body.registrationDate,
-            examinationDate: req.body.examionationDate,
-            transportationOffice: req.body.transportationOffice
+            examinationDate: req.body.examinationDate,
+            transportationOffice: transportationOffice
         },
         {
             new: true
