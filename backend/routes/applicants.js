@@ -64,7 +64,7 @@ router.post(`/`, uploadOptions.single('applicantPhoto'), async (req, res) =>{
         {
             applicantId: req.body.applicantId,
             applicantName: req.body.applicantName, 
-            applicantCitizenshipNumber: req.body.applicantCitizenshipNumber,
+            citizenshipNumber: req.body.applicantCitizenshipNumber,
             applicantAddress: req.body.applicantAddress,
             applicantDOB: req.body.applicantDOB,
             applicantGender: req.body.applicantGender,

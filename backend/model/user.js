@@ -4,7 +4,8 @@ const userSchema = mongoose.Schema({
 
     userName: {
         type: String,
-        required: true
+        required: true,
+      
     },
 
     userEmail: {
@@ -19,7 +20,6 @@ const userSchema = mongoose.Schema({
 
     userAddress: {
         type: String,
-        default: '',
         required: true
     },
 
@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema({
         require: true,
         default: false
     }
-});
+}, {timestamps: true});
 
 userSchema.virtual('id').get(function () {
     return this._id.toHexString();
