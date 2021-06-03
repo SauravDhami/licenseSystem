@@ -1,4 +1,5 @@
 const mongoose =  require('mongoose');
+const User = require('./user');
 const Schema = mongoose.Schema;
 
 const applicantSchema = mongoose.Schema({
@@ -6,8 +7,9 @@ const applicantSchema = mongoose.Schema({
 
    
    appliedBy: {
-      type: String,
-      required: [true, 'Please enter your name!'],
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"User",
+      required:true, 
    },
 
    applicantName : {

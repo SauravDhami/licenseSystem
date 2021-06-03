@@ -5,7 +5,7 @@ const AppError = require('../helpers/appError');
 
 exports.getAllUserApplicant = catchAsync(async (req, res, next) => {
     const applicantList = await Applicant.find({
-        uploadedBy: req.user.id,
+        appliedBy: req.user.id,
     }).populate({
         path: 'appliedBy',
         select: 'userName',
@@ -57,6 +57,15 @@ exports.getApplicant = factory.getOne(Applicant, {
 // });
 
 exports.addApplicant = catchAsync(async (req, res, next) => {
+
+    const { file } = req;
+    if (!file) return res.status(400).send('No image in the request');
+
+    const fileName = file.filename;
+    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+
+
     let applicant = new Applicant({
 
             

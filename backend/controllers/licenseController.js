@@ -3,6 +3,14 @@ const catchAsync = require('../helpers/catchAsync');
 const factory = require('./handlerFactory');
 const AppError = require('../helpers/appError');
 
+Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+};
+
+var date = new Date();
+
 exports.getAllUserLicenseRegistration = catchAsync(async (req, res, next) => {
     const licenseRegistrationList = await LicenseRegistration.find({ userName: req.user.id })
         .populate('appliedBy', 'userName')
@@ -67,18 +75,14 @@ exports.getLicenseRegistration = catchAsync(async (req, res, next) => {
 });
 
 exports.addLicenseRegistration = catchAsync(async (req, res, next) => {
-    const { file } = req;
-    if (!file) return res.status(400).send('No image in the request');
-
-    const fileName = file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+    
 
     let licenseRegistration = new LicenseRegistration({
            
             applicant: req.params.applicantId,
             userName: req.user.id,
             registrationDate: req.body.registrationDate,
-            examinationDate: req.body.examinationDate,
+            examinationDate: date.addDays(10),
           
     });
 

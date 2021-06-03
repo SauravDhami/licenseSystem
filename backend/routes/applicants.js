@@ -17,6 +17,7 @@ const FILE_TYPE_MAP = {
     'image/jpg': 'jpg',
 };
 
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const isValid = FILE_TYPE_MAP[file.mimetype];
@@ -43,14 +44,14 @@ router.use(authController.protect);
 router.use(`/:applicantId/licenseRegistrations`, licenseRegistrationsRoutes);
 
 
-router.route('/').post(applicantController.addApplicant);
+router.route('/').post(uploadOptions.single('applicantPhoto') ,applicantController.addApplicant);
 
 router.route('/').get(applicantController.getAllUserApplicant);
 
 router
     .route('/:id')
     .get(applicantController.getApplicant)
-    .patch(applicantController.updateApplicant);
+   
 
 // router.use(`/:applicantId/insurances`, insuranceRoutes);
 

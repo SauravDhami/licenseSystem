@@ -136,10 +136,11 @@ exports.restrictTo =
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
     //* 1. get user based on POSTed email
+    console.log(req.body.userEmail);
     const user = await User.findOne({
-        userEmail: req.body.userEmail,
+        userEmail: req.body.userEmail
     });
-
+            
     if (!user) {
         return next(
             new AppError('There is no user with the given email address.', 404)
@@ -200,6 +201,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
         return next(new AppError('Token is invalid or has expired!', 400));
     }
     user.userPassword = req.body.userPassword;
+    user.passwordConfirm = req.body.passwordConfirm;
     user.passwordResetToken = undefined;
     user.passwordResetExpiry = undefined;
     await user.save();
