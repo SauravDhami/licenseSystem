@@ -1,12 +1,9 @@
 const mongoose =  require('mongoose');
 
 const licenseRegistrationSchema = mongoose.Schema({
-    registrationId:{
-        type: String,
-        required: true
-      },
+   
 
-      applicantName : {
+      applicant : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Applicant',
         required: true
@@ -18,11 +15,6 @@ const licenseRegistrationSchema = mongoose.Schema({
         required: true
       },
       
-    registrationApplicantId: {
-        type: String,
-        required: true
-      },
-
     registrationDate: {
         type: Date,
         default: Date.now,
@@ -34,10 +26,7 @@ const licenseRegistrationSchema = mongoose.Schema({
         required: true
       },
 
-    transportationOffice: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Applicant',
-      required: true
-      }
 }, {timestamps: true});
-exports.LicenseRegistration = mongoose.model('LicenseRegistration',licenseRegistrationSchema)
+const LicenseRegistration = mongoose.model('LicenseRegistration',licenseRegistrationSchema);
+
+module.exports = LicenseRegistration;

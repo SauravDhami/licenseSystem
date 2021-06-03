@@ -1,10 +1,15 @@
 const mongoose =  require('mongoose');
+const User = require('./user');
 const Schema = mongoose.Schema;
 
 const applicantSchema = mongoose.Schema({
-   applicantId : {
-      type: Number,
-      required: true 
+  
+
+   
+   appliedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"User",
+      required:true, 
    },
 
    applicantName : {
@@ -47,5 +52,8 @@ const applicantSchema = mongoose.Schema({
       type: String,
       required: true
     }
-}, {timestamps: true});
-exports.Applicant = mongoose.model('Applicant', applicantSchema)
+   } , {timestamps: true}
+   );
+
+const Applicant = mongoose.model('Applicant', applicantSchema);
+module.exports = Applicant;
